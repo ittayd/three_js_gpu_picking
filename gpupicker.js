@@ -58,6 +58,7 @@ var GPUPicker = function(three, renderer, scene, camera) {
     var renderList = renderer.renderLists.get(scene, camera);
     renderList.opaque.forEach(item => processItem(item));
     renderList.transparent.forEach(item => processItem(item));
+    renderList.transmissive.forEach(item => processItem(item));
   }
 
   function processItem(renderItem) {
