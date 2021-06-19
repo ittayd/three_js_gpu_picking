@@ -40,13 +40,15 @@ var GPUPicker = function(three, renderer, scene, camera) {
     var currRenderTarget = renderer.getRenderTarget();
     var currClearColor = new THREE.Color();
     renderer.getClearColor(currClearColor);
+    var currAlpha = renderer.getClearAlpha();
+    
     renderer.setRenderTarget(pickingTarget);
-    renderer.setClearColor(clearColor);
+    renderer.setClearColor(clearColor, currAlpha);
     renderer.clear();
     renderer.render(emptyScene, camera);
     renderer.readRenderTargetPixels(pickingTarget, 0, 0, pickingTarget.width, pickingTarget.height, pixelBuffer);
     renderer.setRenderTarget(currRenderTarget);
-    renderer.setClearColor(currClearColor);
+    renderer.setClearColor(currClearColor, currAlpha);
     camera.clearViewOffset();
 
     var val = (pixelBuffer[0] << 24) + (pixelBuffer[1] << 16) + (pixelBuffer[2] << 8) + pixelBuffer[3];
